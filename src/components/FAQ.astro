@@ -1,0 +1,297 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  faqs?: FAQItem[];
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+const {
+  title = "FAQS",
+  subtitle = "Got questions? We've got answers. Here are some of the most common questions we hear from Denver businesses.",
+  faqs = [],
+  ctaText = "STILL HAVE QUESTIONS? CONTACT US",
+  ctaLink = "#contact",
+} = Astro.props;
+---
+
+<section class="faq-section">
+  <div class="faq-container">
+    <div class="faq-header">
+      <h2 class="faq-title">{title}</h2>
+      <p class="faq-subtitle">{subtitle}</p>
+    </div>
+    
+    {faqs.length > 0 && (
+      <div class="faq-grid">
+        {faqs.map((faq, index) => (
+          <div class="faq-item" style={`animation-delay: ${index * 0.1}s`}>
+            <div class="faq-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <h3 class="faq-question">{faq.question}</h3>
+            <p class="faq-answer">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <div class="faq-cta">
+      <a href={ctaLink} class="faq-button">{ctaText}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f2 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .faq-section::before,
+  .faq-section::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .faq-section::before {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(26, 58, 82, 0.3) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .faq-section::after {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(26, 58, 82, 0.2) 0%, transparent 70%);
+    bottom: -50px;
+    left: -50px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(30px);
+    }
+  }
+
+  .faq-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .faq-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .faq-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .faq-item {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.8s ease-out;
+    animation-fill-mode: both;
+  }
+
+  .faq-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(26, 58, 82, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .faq-item:hover {
+    box-shadow: 0 12px 40px rgba(26, 58, 82, 0.15);
+    border-color: #1a3a52;
+    transform: translateY(-4px);
+  }
+
+  .faq-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
+    position: relative;
+    z-index: 1;
+  }
+
+  .faq-question {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  .faq-answer {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.8;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .faq-cta {
+    display: flex;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  .faq-button {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: white;
+    color: #1a3a52;
+    text-decoration: none;
+    border: 2px solid #1a3a52;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: none;
+  }
+
+  .faq-button:hover {
+    background: #1a3a52;
+    color: white;
+    border-color: #1a3a52;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 58, 82, 0.25);
+  }
+
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: 4rem 1.5rem;
+    }
+
+    .faq-section::before,
+    .faq-section::after {
+      display: none;
+    }
+
+    .faq-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .faq-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-subtitle {
+      font-size: 0.95rem;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .faq-item {
+      padding: 2rem;
+    }
+
+    .faq-icon {
+      width: 45px;
+      height: 45px;
+      margin-bottom: 1.25rem;
+    }
+
+    .faq-question {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-answer {
+      font-size: 0.95rem;
+    }
+
+    .faq-button {
+      padding: 0.9rem 2.5rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>

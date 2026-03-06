@@ -1,0 +1,316 @@
+---
+interface Service {
+  icon: string;
+  title: string;
+  description: string;
+  image?: string;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  services: Service[];
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+const {
+  title,
+  subtitle,
+  services,
+  ctaText = "EXPLORE OUR DIGITAL MARKETING SERVICES",
+  ctaLink = "#services",
+} = Astro.props;
+---
+
+<section class="services">
+  <div class="services-container">
+    <div class="services-header">
+      <h2 class="services-title">{title}</h2>
+      <p class="services-subtitle" set:html={subtitle}></p>
+    </div>
+
+    <div class="services-grid">
+      {services.map((service) => (
+        <div class="service-card">
+          {service.image && (
+            <div class="service-image">
+              <img src={service.image} alt={service.title} />
+            </div>
+          )}
+          <div class="service-content">
+            <div class="service-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                {service.icon === "billboard" && (
+                  <>
+                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                    <path d="M16 3h-2v4h2V3z"></path>
+                    <path d="M10 3H8v4h2V3z"></path>
+                  </>
+                )}
+                {service.icon === "social" && (
+                  <>
+                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"></path>
+                  </>
+                )}
+                {service.icon === "website" && (
+                  <>
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                  </>
+                )}
+                {service.icon === "leads" && (
+                  <>
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
+                  </>
+                )}
+              </svg>
+            </div>
+            <h3 class="service-title">{service.title}</h3>
+            <p class="service-description">{service.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="services-action">
+      <a href={ctaLink} class="action-button">{ctaText}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f2 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .services-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .services-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 0.1rem;
+    letter-spacing: -0.01em;
+    position: relative;
+    display: inline-block;
+  }
+
+  .services-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 1rem auto 0;
+    font-weight: 500;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .service-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.8s ease-out;
+    animation-fill-mode: both;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(26, 58, 82, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .service-card:hover {
+    box-shadow: 0 12px 40px rgba(26, 58, 82, 0.15);
+    border-color: #1a3a52;
+  }
+
+  .service-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+
+  .service-card:hover .service-image img {
+    transform: scale(1.08);
+  }
+
+  .service-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+  }
+
+  .service-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
+  }
+  
+  .service-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .service-description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .services-action {
+    display: flex;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease-out 0.5s both;
+    position: relative;
+    z-index: 2;
+    margin-top: 1rem;
+  }
+
+  .action-button {
+    display: inline-block;
+    padding: 0.8rem 3rem;
+    background: white;
+    color: #1a3a52;
+    text-decoration: none;
+    border: 2px solid #1a3a52;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: none;
+  }
+
+  .action-button:hover {
+    background: #1a3a52;
+    color: white;
+    border-color: #1a3a52;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 58, 82, 0.25);
+  }
+
+  @media (max-width: 768px) {
+    .services {
+      padding: 4rem 1.5rem;
+    }
+
+    .services::before,
+    .services::after {
+      display: none;
+    }
+
+    .services-header {
+      margin-bottom: 3rem;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .services-title {
+      font-size: 1.8rem;
+    }
+
+    .services-subtitle {
+      font-size: 1rem;
+    }
+
+    .service-card {
+      border-radius: 8px;
+    }
+
+    .service-image {
+      height: 150px;
+    }
+
+    .service-content {
+      padding: 1.5rem;
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+
+    .service-title {
+      font-size: 1.1rem;
+    }
+
+    .service-description {
+      font-size: 0.95rem;
+    }
+
+    .cta-button {
+      padding: 0.9rem 2.5rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>

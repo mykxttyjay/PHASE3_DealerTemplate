@@ -1,0 +1,257 @@
+---
+interface Location {
+  name: string;
+  icon?: string;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  mapUrl?: string;
+  locations?: Location[];
+}
+
+const {
+  title,
+  subtitle,
+  mapUrl,
+  locations = [],
+} = Astro.props;
+---
+
+<section class="locations-section">
+  <div class="locations-container">
+    <div class="locations-header">
+      <h2 class="locations-title">{title}</h2>
+      <p class="locations-subtitle" set:html={subtitle}></p>
+    </div>
+
+    <div class="locations-content">
+      {mapUrl && (
+        <div class="locations-map">
+          <iframe
+            src={mapUrl}
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      )}
+
+      {locations.length > 0 && (
+        <div class="locations-list">
+          <div class="locations-list-header">
+            <h3>OUR LOCATIONS</h3>
+            <p>Discover the venues in our network while exploring the map.</p>
+          </div>
+          <div class="locations-items">
+            {locations.map((location) => (
+              <div class="location-item">
+                <div class="location-icon">
+                  {location.icon === "gym" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M6 4h12v2H6V4zm1 4h10v12H7V8zm2 2v8h2v-8H9zm4 0v8h2v-8h-2z"/>
+                    </svg>
+                  )}
+                  {location.icon === "restaurant" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-5h5v5h2.5V12.97C19.34 12.84 21 11.12 21 9V2h-2v7h-2V2h-2v7h-2V2h-2v7z"/>
+                    </svg>
+                  )}
+                  {location.icon === "retail" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                  )}
+                  {!location.icon && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                    </svg>
+                  )}
+                </div>
+                <span class="location-name">{location.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .locations-section {
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f7 100%);
+  }
+
+  .locations-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .locations-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .locations-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .locations-subtitle {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .locations-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .locations-map {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .locations-map iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  .locations-list {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .locations-list-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .locations-list-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .locations-list-header p {
+    font-size: 1.0rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .locations-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .location-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .location-item:hover {
+    background: #f8f9fa;
+  }
+
+  .location-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .location-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a3a52;
+  }
+
+  @media (max-width: 1024px) {
+    .locations-content {
+      grid-template-columns: 1fr;
+    }
+
+    .locations-map {
+      height: 350px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .locations-section {
+      padding: 3rem 1rem;
+    }
+
+    .locations-header {
+      margin-bottom: 2rem;
+    }
+
+    .locations-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .locations-subtitle {
+      font-size: 0.95rem;
+    }
+
+    .locations-map {
+      height: 300px;
+    }
+
+    .locations-list {
+      padding: 1.5rem;
+    }
+
+    .locations-items {
+      gap: 1rem;
+    }
+
+    .location-item {
+      padding: 0.75rem;
+    }
+
+    .location-name {
+      font-size: 0.9rem;
+    }
+  }
+</style>

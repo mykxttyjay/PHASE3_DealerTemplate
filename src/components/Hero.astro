@@ -1,0 +1,372 @@
+---
+interface Props {
+  badge?: string;
+  title: string;
+  description: string;
+  ctaText?: string;
+  ctaLink?: string;
+  imageUrl?: string;
+  videoUrl?: string;
+  minHeight?: string;
+}
+
+const {
+  badge = "PREMIUM MARKETING SOLUTIONS",
+  title,
+  description,
+  ctaText = "TALK TO OUR TEAM",
+  ctaLink = "#",
+  imageUrl,
+  videoUrl,
+  minHeight = "100vh",
+} = Astro.props;
+---
+
+<section class="hero" style={`min-height: ${minHeight}`}>
+  {videoUrl && (
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src={videoUrl} type="video/mp4" />
+    </video>
+  )}
+  {imageUrl && !videoUrl && (
+    <div class="hero-image-bg" style={`background-image: url('${imageUrl}')`}></div>
+  )}
+  <div class="hero-overlay"></div>
+
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg class="badge-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        {badge}
+      </div>
+      
+      <div class="hero-title-wrapper">
+        <h1 class="hero-title">{title}</h1>
+      </div>
+      
+      <div class="hero-description-wrapper">
+        <svg class="arrow-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p class="hero-description">{description}</p>
+      </div>
+      
+      <div class="hero-cta-group">
+        <a href={ctaLink} class="hero-cta hero-cta-primary">{ctaText}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: linear-gradient(to right, #1a3a52 0%, #1a3a52 50%, #5a8fb3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .hero-image-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    z-index: 0;
+    image-rendering: high-quality;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(26, 58, 82, 0.3) 0%, rgba(26, 58, 82, 0.5) 40%, rgba(26, 58, 82, 0.75) 80%, rgba(26, 58, 82, 0.95) 100%);
+    z-index: 1;
+  }
+
+  .hero-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 2;
+    min-height: 100%;
+  }
+
+  .hero-content {
+    color: white;
+    z-index: 2;
+    max-width: 830px;
+    text-align: center;
+    animation: slideInUp 0.8s ease-out;
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    animation: fadeInDown 0.8s ease-out 0.1s both;
+  }
+
+  .badge-star {
+    flex-shrink: 0;
+  }
+
+  .hero-title-wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 9vw, 4.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #ffffff 0%, #e8f0f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInDown 0.8s ease-out 0.2s both;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-description-wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 2.0rem;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .arrow-icon {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    opacity: 0.9;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .hero-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    opacity: 0.95;
+    margin: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+  }
+
+  .hero-cta-primary {
+    background: white;
+    color: #1a3a52;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-cta-primary:hover {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  } box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  
+
+  .hero-cta-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: none;
+  }
+
+  .hero-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-cta svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-container {
+      padding: 3rem 2rem;
+    }
+
+    .hero-cta-group {
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+      padding: 2rem 0;
+    }
+
+    .hero-image-bg {
+      background-attachment: scroll;
+    }
+
+    .hero-container {
+      padding: 2rem 1.5rem;
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    .hero-badge {
+      font-size: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    .hero-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .title-accent {
+      width: 60px;
+      bottom: -12px;
+    }
+
+    .hero-description-wrapper {
+      margin-bottom: 2rem;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+
+    .hero-cta-group {
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-container {
+      padding: 1.5rem 1rem;
+    }
+
+    .hero-title {
+      font-size: 1.4rem;
+    }
+
+    .hero-description {
+      font-size: 0.9rem;
+    }
+
+    .hero-cta {
+      padding: 0.65rem 1.25rem;
+      font-size: 0.75rem;
+    }
+  }
+</style>

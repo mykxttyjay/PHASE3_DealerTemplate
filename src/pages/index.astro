@@ -1,11 +1,217 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Venues from '../components/Venues.astro';
+import Featured from '../components/Featured.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import Consult from '../components/Consult.astro';
+import FAQ from '../components/FAQ.astro';
+import Locations from '../components/Locations.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import Footer from '../components/Footer.astro';
+import FloatingCTA from '../components/FloatingCTA.astro';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Denver Marketing Agency - Digital Marketing & Billboards</title>
+    <link rel="icon" type="image/jpeg" href="/dealer-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style is:global>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <Hero
+      badge="PREMIUM MARKETING SOLUTIONS"
+      title="Local Advertising and Digital Marketing Pros in Denver"
+      description="Helping Businesses Get Noticed—On Screens and Online"
+      ctaText="TALK TO OUR TEAM"
+      ctaLink="#contact"
+      imageUrl="/home.jpg"
+      minHeight="100vh"
+    />
+    <Services
+      title="Local Advertising Solutions for Denver Businesses"
+      subtitle="As your trusted <strong>Denver marketing pros</strong>, our billboard network gives you access to high-traffic locations where your ideal customers spend time. From gyms and restaurants to retail stores and office buildings, we help you get noticed in the moments that matter."
+      services={[
+        {
+          icon: "billboard",
+          title: "Indoor Billboard Advertising",
+          description: "High-impact advertising in premium indoor locations across Denver",
+          image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "social",
+          title: "Social Media Marketing",
+          description: "Build and engage your audience with strategic social media content",
+          image: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "website",
+          title: "Custom Website Design",
+          description: "Professional websites that convert visitors into customers",
+          image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "leads",
+          title: "Targeted Lead Generation",
+          description: "Strategic campaigns that generate quality leads and maximize ROI",
+          image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop"
+        }
+      ]}
+      ctaText="EXPLORE OUR DIGITAL MARKETING SERVICES"
+      ctaLink="#services"
+    />
+    <Venues
+      title="Denver's Premier Venue Partner Network"
+      description="Our <strong>digital marketing pros</strong> have built exclusive partnerships with Denver's most popular venues and businesses. Our <strong>screen network</strong> reaches customers when they're relaxed, engaged, and ready to take action—whether they're working out, dining, shopping, or waiting for service."
+      features={[
+        "Exclusive venue partnerships",
+        "High-traffic prime locations",
+        "Targeted audience reach",
+        "Flexible campaign options"
+      ]}
+      ctaText="VIEW VENUE PARTNERS"
+      ctaLink="#venues"
+      imageUrl="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1200&h=900&fit=crop"
+    />
+    <Featured
+      badge="FEATURED"
+      title="Full-Service Digital Marketing from Denver Pros"
+      description="Beyond <strong>screen ads</strong>, our <strong>Denver marketing pros</strong> provide full-scale digital marketing to help your business show up, stand out, and grow. Whether you're just getting started or need help scaling your outreach, we've got the tools and the team to support you."
+      imageUrl="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=500&fit=crop"
+      solutions={[
+        {
+          icon: "google",
+          title: "Google Business Profile Setup",
+          description: "Get found on Google Maps and local search."
+        },
+        {
+          icon: "website",
+          title: "Professional Website Design",
+          description: "Fast, mobile-ready websites built for performance."
+        },
+        {
+          icon: "social",
+          title: "Social Media Strategy",
+          description: "Consistent posting and creative to grow your presence."
+        },
+        {
+          icon: "ppc",
+          title: "PPC Campaign Management",
+          description: "Targeted ads that drive calls, clicks, and leads."
+        }
+      ]}
+      ctaText="VIEW ALL MARKETING SOLUTIONS"
+      ctaLink="#solutions"
+    />
+    <WhyChooseUs
+      badge="YOUR TRUSTED DENVER MARKETING PARTNERS"
+      title="Why Denver Businesses Choose Our Marketing Pros"
+      description="We're not just a fellow agency. Why? <strong>Denver marketing pros</strong> are locals who understand the market, know the neighborhoods, and have the relationships that get results. Our clients choose us because we deliver measurable outcomes, transparent reporting, and personalized service that keeps your business like our own. From <strong>web design</strong> to <strong>PPC campaigns</strong>, we've got you covered."
+      ctaText="GET STARTED TODAY"
+      ctaLink="#contact"
+      imageUrl="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=450&fit=crop"
+    />
+    <Consult
+      title="Partner with Denver's Local Advertising & Digital Marketing Pros"
+      description="Whether you're looking for <strong>screen ads</strong>, a new <strong>website</strong>, or a complete <strong>digital marketing</strong> strategy in <strong>Denver</strong>, we're here to help. Contact us today for a free consultation and let's discuss how we can grow your business."
+      ctaText="SCHEDULE FREE CONSULTATION"
+      ctaLink="#contact"
+    />
+    <FAQ
+      title="FAQS"
+      subtitle=""
+      faqs={[
+        {
+          question: "What is Indoor Digital Signage Advertising?",
+          answer: "It's the placement of your ads on TV screens located inside high-traffic venues, offering brand visibility where people are already engaged, relaxed, and ready to engage."
+        },
+        {
+          question: "Do you offer packages that include screens and online ads?",
+          answer: "Yes! We offer bundled packages that combine indoor billboards with digital marketing services like social ads, Google Ads, and SEO to maximize your reach both on-site and online."
+        },
+        {
+          question: "Can you help my business rank on Google?",
+          answer: "Absolutely. We provide SEO services, Google Business setup, and local search strategies to help your business show up when customers are searching for your services in Denver."
+        }
+      ]}
+    />
+    <Locations
+      title="We Put Local Brands on the Map"
+      subtitle="Our <strong>network</strong> spans across Denver's most popular neighborhoods and venues"
+      mapUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3067.8256519218744!2d-104.99051!3d39.7392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b80aa231f17cf%3A0x118ef4f8278a36d6!2sDenver%2C%20CO!5e0!3m2!1sen!2sus!4v1234567890"
+      locations={[
+        { name: "Aurora", icon: "gym" },
+        { name: "Lakewood", icon: "restaurant" },
+        { name: "Arvada", icon: "retail" }
+      ]}
+    />
+    <FinalCTA
+      title="Ready to Grow Your Business?"
+      description="Get in touch with our team today and let's discuss how we can help you reach more customers."
+      ctaText="GET STARTED"
+      ctaLink="#contact"
+      backgroundImage="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1200&h=600&fit=crop"
+    />
+    <Footer
+      logo="/dealer-logo.jpg"
+      description="Your trusted partner for comprehensive digital marketing solutions—from custom website design and SEO to indoor billboard advertising and targeted campaigns that deliver real results."
+      socialLinks={[
+        { icon: "instagram", url: "#" },
+        { icon: "facebook", url: "#" },
+        { icon: "linkedin", url: "#" },
+        { icon: "twitter", url: "#" }
+      ]}
+      solutions={[
+        { title: "Website Design", url: "#" },
+        { title: "Design Business Profile", url: "#" },
+        { title: "Social Media Management", url: "#" },
+        { title: "Lead Generation", url: "#" },
+        { title: "Resources & Awareness", url: "#" }
+      ]}
+      billboards={[
+        { title: "Become a Venue Partner", url: "#" },
+        { title: "Locations", url: "#" },
+        { title: "Zenith Advertising", url: "#" }
+      ]}
+      company={[
+        { title: "About", url: "#" },
+        { title: "Contact", url: "#" }
+      ]}
+      contact={{
+        city: "Your City Name",
+        phone: "(303) 555-2847",
+        email: "hello@yourbusiness.com"
+      }}
+    />
+    <FloatingCTA
+      text="FREE SCAN"
+      link="#contact"
+      icon="scan"
+    />
+  </body>
+</html>

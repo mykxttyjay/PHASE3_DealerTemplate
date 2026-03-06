@@ -1,0 +1,132 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+const {
+  title,
+  description,
+  ctaText = "SCHEDULE FREE CONSULTATION",
+  ctaLink = "#contact",
+} = Astro.props;
+---
+
+<section class="consult-section">
+  <div class="consult-container">
+    <div class="consult-content">
+      <h2 class="consult-title">{title}</h2>
+      <p class="consult-description" set:html={description}></p>
+      <a href={ctaLink} class="consult-button">{ctaText}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .consult-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .consult-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .consult-content {
+    max-width: 1050px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 4.5rem 4rem;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.08);
+    animation: slideInUp 0.8s ease-out;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .consult-title {
+    font-size: clamp(1.75rem, 5vw, 2.2rem);
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .consult-description {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .consult-description :global(strong) {
+    font-weight: 700;
+    color: white;
+  }
+
+  .consult-button {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: white;
+    color: #1a3a52;
+    text-decoration: none;
+    border: 2px solid white;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .consult-button:hover {
+    background: transparent;
+    color: white;
+    border-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .consult-section {
+      padding: 4rem 1.5rem;
+    }
+
+    .consult-section::before,
+    .consult-section::after {
+      display: none;
+    }
+
+    .consult-content {
+      padding: 2.5rem 1.5rem;
+      border-radius: 12px;
+    }
+
+    .consult-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .consult-description {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .consult-button {
+      padding: 0.9rem 2.2rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>
