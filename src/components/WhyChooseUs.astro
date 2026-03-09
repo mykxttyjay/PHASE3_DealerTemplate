@@ -29,7 +29,13 @@ const {
       </div>
       <h2 class="why-title">{title}</h2>
       <p class="why-description" set:html={description}></p>
-      <a href={ctaLink} class="why-cta">{ctaText}</a>
+      <a href={ctaLink} class="why-cta">
+        <span>{ctaText}</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
     
     {imageUrl && (
@@ -46,7 +52,7 @@ const {
 <style>
   .why-choose-us {
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f7 100%);
+    background: #ecf2f8;
     position: relative;
     overflow: hidden;
   }
@@ -101,7 +107,9 @@ const {
   }
 
   .why-cta {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 0.9rem 2.2rem;
     background: #1a3a52;
     color: white;
@@ -116,12 +124,20 @@ const {
     box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
   }
 
+  .why-cta svg {
+    transition: transform 0.3s ease;
+  }
+
   .why-cta:hover {
     background: white;
     color: #1a3a52;
     border-color: #1a3a52;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(26, 58, 82, 0.25);
+  }
+
+  .why-cta:hover svg {
+    transform: translateX(5px);
   }
 
   .why-image-wrapper {
@@ -172,12 +188,7 @@ const {
 
   @media (max-width: 768px) {
     .why-choose-us {
-      padding: 4rem 1.5rem;
-    }
-
-    .why-choose-us::before,
-    .why-choose-us::after {
-      display: none;
+      padding: 3rem 1rem;
     }
 
     .why-container {
@@ -185,34 +196,61 @@ const {
     }
 
     .why-badge {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       padding: 0.5rem 1rem;
       margin-bottom: 1rem;
     }
 
     .why-title {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       margin-bottom: 1rem;
+      line-height: 1.3;
     }
 
     .why-description {
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
     }
 
     .why-cta {
-      padding: 0.8rem 1.8rem;
-      font-size: 0.8rem;
+      padding: 0.85rem 1.75rem;
+      font-size: 0.75rem;
+      width: 100%;
+      justify-content: center;
     }
 
     .why-image {
       border-radius: 8px;
-      aspect-ratio: auto;
+      aspect-ratio: 4 / 3;
       min-height: 250px;
     }
 
     .image-decoration {
       display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .why-choose-us {
+      padding: 2.5rem 0.75rem;
+    }
+
+    .why-title {
+      font-size: 1.4rem;
+    }
+
+    .why-description {
+      font-size: 0.85rem;
+    }
+
+    .why-cta {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.7rem;
+    }
+
+    .why-image {
+      min-height: 220px;
     }
   }
 </style>

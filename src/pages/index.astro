@@ -10,7 +10,8 @@ import FAQ from '../components/FAQ.astro';
 import Locations from '../components/Locations.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import Footer from '../components/Footer.astro';
-import FloatingCTA from '../components/FloatingCTA.astro';
+import PopupModal from '../components/PopupModal.astro';
+import FloatingButton from '../components/FloatingButton.astro';
 ---
 
 <html lang="en">
@@ -18,7 +19,7 @@ import FloatingCTA from '../components/FloatingCTA.astro';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Denver Marketing Agency - Digital Marketing & Billboards</title>
-    <link rel="icon" type="image/jpeg" href="/dealer-logo.jpg" />
+    <link rel="icon" type="image/png" href="/removed-logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -43,6 +44,7 @@ import FloatingCTA from '../components/FloatingCTA.astro';
     </style>
   </head>
   <body>
+    <PopupModal />
     <Header />
     <Hero
       badge="PREMIUM MARKETING SOLUTIONS"
@@ -80,13 +82,37 @@ import FloatingCTA from '../components/FloatingCTA.astro';
           title: "Targeted Lead Generation",
           description: "Strategic campaigns that generate quality leads and maximize ROI",
           image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "people",
+          title: "Reach More People",
+          description: "Use multiple channels like indoor billboards and social media ads to connect with a wider audience in different places",
+          image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "engagement",
+          title: "Increase Engagement",
+          description: "Connect with users on their preferred channels, where they're more likely to engage with your content",
+          image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "brand",
+          title: "Consistent Brand Image",
+          description: "Maintain a uniform brand image across channels to make your brand recognizable and reliable",
+          image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "journey",
+          title: "Simplify Customer Path",
+          description: "Create touch points in the customer journey, making it easier to guide them towards a desired action",
+          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop"
         }
       ]}
       ctaText="EXPLORE OUR DIGITAL MARKETING SERVICES"
       ctaLink="#services"
     />
     <Venues
-      title="Denver's Premier Venue Partner Network"
+      title="Denver's Premier Venue<br>Partner Network"
       description="Our <strong>digital marketing pros</strong> have built exclusive partnerships with Denver's most popular venues and businesses. Our <strong>screen network</strong> reaches customers when they're relaxed, engaged, and ready to take action—whether they're working out, dining, shopping, or waiting for service."
       features={[
         "Exclusive venue partnerships",
@@ -107,22 +133,62 @@ import FloatingCTA from '../components/FloatingCTA.astro';
         {
           icon: "google",
           title: "Google Business Profile Setup",
-          description: "Get found on Google Maps and local search."
+          description: "Get found on Google Maps and local search.",
+          image: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=500&h=300&fit=crop"
         },
         {
           icon: "website",
           title: "Professional Website Design",
-          description: "Fast, mobile-ready websites built for performance."
+          description: "Fast, mobile-ready websites built for performance.",
+          image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500&h=300&fit=crop"
         },
         {
           icon: "social",
           title: "Social Media Strategy",
-          description: "Consistent posting and creative to grow your presence."
+          description: "Consistent posting and creative to grow your presence.",
+          image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500&h=300&fit=crop"
         },
         {
           icon: "ppc",
           title: "PPC Campaign Management",
-          description: "Targeted ads that drive calls, clicks, and leads."
+          description: "Targeted ads that drive calls, clicks, and leads.",
+          image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "screen",
+          title: "Screen Advertising",
+          description: "Showcase your brand on hyper-local digital screens throughout daily routines.",
+          image: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "socialads",
+          title: "Social Media Ads",
+          description: "Reach ideal customers with targeted messaging on social platforms.",
+          image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "geofencing",
+          title: "Display Advertising | Geofencing",
+          description: "Location-targeted ads that increase brand visibility online and on devices.",
+          image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "tv",
+          title: "Connected TV | OTT Ads",
+          description: "Non-skippable placements on streaming platforms like Apple TV and Roku.",
+          image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "audio",
+          title: "Streaming Audio",
+          description: "Strategic audio ads in podcasts, radio, and music at the perfect moment.",
+          image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=500&h=300&fit=crop"
+        },
+        {
+          icon: "design",
+          title: "Design Services",
+          description: "Transform your vision into exceptional graphic design and branding.",
+          image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500&h=300&fit=crop"
         }
       ]}
       ctaText="VIEW ALL MARKETING SOLUTIONS"
@@ -134,7 +200,7 @@ import FloatingCTA from '../components/FloatingCTA.astro';
       description="We're not just a fellow agency. Why? <strong>Denver marketing pros</strong> are locals who understand the market, know the neighborhoods, and have the relationships that get results. Our clients choose us because we deliver measurable outcomes, transparent reporting, and personalized service that keeps your business like our own. From <strong>web design</strong> to <strong>PPC campaigns</strong>, we've got you covered."
       ctaText="GET STARTED TODAY"
       ctaLink="#contact"
-      imageUrl="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=450&fit=crop"
+      imageUrl="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=450&fit=crop"
     />
     <Consult
       title="Partner with Denver's Local Advertising & Digital Marketing Pros"
@@ -143,8 +209,8 @@ import FloatingCTA from '../components/FloatingCTA.astro';
       ctaLink="#contact"
     />
     <FAQ
-      title="FAQS"
-      subtitle=""
+      title="Frequently Asked Questions"
+      subtitle="Everything you need to know about our services"
       faqs={[
         {
           question: "What is Indoor Digital Signage Advertising?",
@@ -167,7 +233,8 @@ import FloatingCTA from '../components/FloatingCTA.astro';
       locations={[
         { name: "Aurora", icon: "gym" },
         { name: "Lakewood", icon: "restaurant" },
-        { name: "Arvada", icon: "retail" }
+        { name: "Arvada", icon: "retail" },
+        { name: "Centennial", icon: "gym" }
       ]}
     />
     <FinalCTA
@@ -178,7 +245,7 @@ import FloatingCTA from '../components/FloatingCTA.astro';
       backgroundImage="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1200&h=600&fit=crop"
     />
     <Footer
-      logo="/dealer-logo.jpg"
+      logo="/removed-logo.png"
       description="Your trusted partner for comprehensive digital marketing solutions—from custom website design and SEO to indoor billboard advertising and targeted campaigns that deliver real results."
       socialLinks={[
         { icon: "instagram", url: "#" },
@@ -187,28 +254,46 @@ import FloatingCTA from '../components/FloatingCTA.astro';
         { icon: "twitter", url: "#" }
       ]}
       solutions={[
-        { title: "Website Design", url: "#" },
-        { title: "Design Business Profile", url: "#" },
-        { title: "Social Media Management", url: "#" },
-        { title: "Lead Generation", url: "#" },
-        { title: "Resources & Awareness", url: "#" }
+        { 
+          title: "Foundational", 
+          items: [
+            "Website Design",
+            "Google Business Profile",
+            "Social Media Management",
+          ]
+        },
+        { 
+          title: "Lead Generation", 
+          items: [
+            "Social Media Advertising",
+            "Pay Per Click",
+          ]
+        },
+        { 
+          title: "Branding & Awareness", 
+          items: [
+            "Connected TV (OTT Ads)",
+            "Display (Geofencing)",
+            "Streaming Audio Advertising",
+          ]
+        }
       ]}
       billboards={[
         { title: "Become a Venue Partner", url: "#" },
         { title: "Locations", url: "#" },
-        { title: "Zenith Advertising", url: "#" }
+        { title: "Screen Advertising", url: "#" }
       ]}
       company={[
         { title: "About", url: "#" },
         { title: "Contact", url: "#" }
       ]}
       contact={{
-        city: "Your City Name",
-        phone: "(303) 555-2847",
+        city: "Your City, State",
+        phone: "(555) 123-4567",
         email: "hello@yourbusiness.com"
       }}
     />
-    <FloatingCTA
+    <FloatingButton
       text="FREE SCAN"
       link="#contact"
       icon="scan"

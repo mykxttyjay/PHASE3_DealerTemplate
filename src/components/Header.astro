@@ -1,16 +1,132 @@
 ---
+interface DropdownItem {
+  title: string;
+  description: string;
+  icon: string;
+  href: string;
+}
+
+interface CategoryGroup {
+  category: string;
+  items: DropdownItem[];
+}
+
 interface Props {
   logo?: string;
-  navItems?: Array<{ label: string; href: string }>;
+  navItems?: Array<{ 
+    label: string; 
+    href: string; 
+    hasDropdown?: boolean; 
+    dropdownItems?: (DropdownItem | CategoryGroup)[];
+  }>;
 }
 
 const {
-  logo = "/dealer-logo.jpg",
+  logo = "/logo.png",
   navItems = [
     { label: "Home", href: "/" },
     { label: "About Us", href: "/#" },
-    { label: "Indoor Billboards", href: "/#" },
-    { label: "Solutions", href: "/#" },
+    { 
+      label: "Indoor Billboards", 
+      href: "/#", 
+      hasDropdown: true,
+      dropdownItems: [
+        {
+          title: "Become a Venue Partner",
+          description: "Join our network of premium venues to reach engaged audiences in high-traffic locations across Denver.",
+          icon: "store",
+          href: "/#venue-partner"
+        },
+        {
+          title: "Locations",
+          description: "Our network of indoor digital billboards is located within retail and restaurant venues across your local community.",
+          icon: "location",
+          href: "/#locations"
+        },
+        {
+          title: "Screen Advertising",
+          description: "Advertise on screens in your local community to reach your target audience.",
+          icon: "screen",
+          href: "/#screen-advertising"
+        }
+      ]
+    },
+    { 
+      label: "Solutions", 
+      href: "/#", 
+      hasDropdown: true,
+      dropdownItems: [
+        {
+          category: "FOUNDATIONAL",
+          items: [
+            {
+              title: "Website Design",
+              description: "Custom website design & development to achieve your unique goals and maximize results.",
+              icon: "globe",
+              href: "/#website-design"
+            },
+            {
+              title: "Google Business Profile",
+              description: "Optimize your local presence and get found by customers searching for your services.",
+              icon: "google",
+              href: "/#google-business"
+            },
+            {
+              title: "Social Media Management",
+              description: "Build and engage your audience across all major social platforms.",
+              icon: "calendar",
+              href: "/#social-media"
+            },
+            {
+              title: "Design Services",
+              description: "Professional design services to elevate your brand identity.",
+              icon: "palette",
+              href: "/#design-services"
+            }
+          ]
+        },
+        {
+          category: "LEAD GEN",
+          items: [
+            {
+              title: "Social Media Advertising",
+              description: "Professional social media advertising services to drive targeted traffic and conversions.",
+              icon: "ad",
+              href: "/#social-ads"
+            },
+            {
+              title: "Pay Per Click",
+              description: "Professional pay-per-click advertising services to drive targeted traffic and conversions.",
+              icon: "dollar",
+              href: "/#ppc"
+            }
+          ]
+        },
+        {
+          category: "BRANDING & AWARENESS",
+          items: [
+            {
+              title: "Connected TV (OTT Ads)",
+              description: "Reach audiences on streaming platforms with targeted TV advertising.",
+              icon: "tv",
+              href: "/#ott-ads"
+            },
+            {
+              title: "Display (Geofencing)",
+              description: "Location-based display advertising that targets customers where they are.",
+              icon: "target",
+              href: "/#geofencing"
+            },
+            {
+              title: "Streaming Audio Advertising",
+              description: "Reach engaged listeners with targeted streaming audio ads on popular music and podcast platforms. Non-skippable audio advertising that drives brand awareness and conversions.",
+              icon: "headphones",
+              href: "/#audio-ads"
+            }
+          ]
+        }
+      ]
+    },
     { label: "Contact Us", href: "/#" },
   ],
 } = Astro.props;
@@ -20,61 +136,177 @@ const {
   <div class="header-container">
     <div class="logo-wrapper">
       <img src={logo} alt="Logo" class="logo" />
+      <img src="/dealer-logo.png" alt="Dealer Template" class="company-logo" />
     </div>
     <nav class="nav">
       {navItems.map((item, index) => (
         item.label === "Contact Us" ? (
           <a href={item.href} class="nav-link nav-link-button">{item.label}</a>
         ) : (
-          <a href={item.href} class="nav-link">
-            <span class="nav-link-text">{item.label}</span>
-            <span class="nav-link-underline"></span>
-          </a>
+          <div class="nav-item-wrapper">
+            <a href={item.href} class="nav-link">
+              <span class="nav-link-text">
+                {item.label}
+                {item.hasDropdown && (
+                  <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                )}
+              </span>
+              <span class="nav-link-underline"></span>
+            </a>
+            
+            {item.hasDropdown && item.dropdownItems && (
+              <div class={`dropdown-menu ${(item.dropdownItems[0] as any).category ? 'dropdown-menu-large' : ''}`}>
+                {(item.dropdownItems[0] as any).category ? (
+                  (item.dropdownItems as CategoryGroup[]).map((categoryGroup) => (
+                    <div class="dropdown-category">
+                      <h5 class="category-title">{categoryGroup.category}</h5>
+                      <div class="category-items">
+                        {categoryGroup.items.map((dropItem) => (
+                          <a href={dropItem.href} class="dropdown-item">
+                            <div class="dropdown-icon-wrapper">
+                              {dropItem.icon === "globe" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                </svg>
+                              )}
+                              {dropItem.icon === "google" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                                </svg>
+                              )}
+                              {dropItem.icon === "calendar" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                              )}
+                              {dropItem.icon === "palette" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+                                  <circle cx="6.5" cy="11.5" r="1.5"></circle>
+                                  <circle cx="9.5" cy="7.5" r="1.5"></circle>
+                                  <circle cx="14.5" cy="7.5" r="1.5"></circle>
+                                  <circle cx="17.5" cy="11.5" r="1.5"></circle>
+                                </svg>
+                              )}
+                              {dropItem.icon === "ad" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                                  <polyline points="17 2 12 7 7 2"></polyline>
+                                </svg>
+                              )}
+                              {dropItem.icon === "dollar" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <line x1="12" y1="1" x2="12" y2="23"></line>
+                                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                              )}
+                              {dropItem.icon === "tv" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                                  <polyline points="17 2 12 7 7 2"></polyline>
+                                </svg>
+                              )}
+                              {dropItem.icon === "target" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <circle cx="12" cy="12" r="6"></circle>
+                                  <circle cx="12" cy="12" r="2"></circle>
+                                </svg>
+                              )}
+                              {dropItem.icon === "headphones" && (
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                                  <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                                </svg>
+                              )}
+                            </div>
+                            <div class="dropdown-content">
+                              <h4 class="dropdown-title">{dropItem.title}</h4>
+                              <p class="dropdown-description">{dropItem.description}</p>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  (item.dropdownItems as DropdownItem[]).map((dropItem) => (
+                    <a href={dropItem.href} class="dropdown-item">
+                      <div class="dropdown-icon-wrapper">
+                        {dropItem.icon === "store" && (
+                          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                          </svg>
+                        )}
+                        {dropItem.icon === "location" && (
+                          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                          </svg>
+                        )}
+                        {dropItem.icon === "screen" && (
+                          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                          </svg>
+                        )}
+                      </div>
+                      <div class="dropdown-content">
+                        <h4 class="dropdown-title">{dropItem.title}</h4>
+                        <p class="dropdown-description">{dropItem.description}</p>
+                      </div>
+                    </a>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
         )
       ))}
     </nav>
   </div>
 </header>
 
-<script>
-  let lastScrollTop = 0;
-  const header = document.getElementById('header');
-
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-    if (scrollTop > 100) {
-      // Scrolling down
-      if (scrollTop > lastScrollTop) {
-        header?.classList.add('hide');
-        header?.classList.remove('show');
-      }
-      // Scrolling up
-      else {
-        header?.classList.remove('hide');
-        header?.classList.add('show');
-      }
-    } else {
-      // At top of page
-      header?.classList.remove('hide');
-      header?.classList.remove('show');
-    }
-
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-  });
-</script>
-
 <style>
   .header {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    padding: 1.25rem 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    position: sticky;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(26, 58, 82, 0.1);
-    transition: all 0.3s ease;
+    padding: 0.9rem 2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .header.hidden {
+    transform: translateY(-100%);
+  }
+
+  @media (min-width: 1400px) {
+    .header {
+      padding: 0.9rem 15.8rem;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1399px) {
+    .header {
+      padding: 0.9rem 4rem;
+    }
   }
 
   .header-container {
@@ -90,28 +322,17 @@ const {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    animation: slideInLeft 0.6s ease-out;
-  }
-
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+    gap: 1rem;
   }
 
   .logo {
     height: 45px;
     width: auto;
-    transition: transform 0.3s ease;
   }
 
-  .logo:hover {
-    transform: scale(1.05);
+  .company-logo {
+    height: 35px;
+    width: auto;
   }
 
   .nav {
@@ -119,6 +340,10 @@ const {
     gap: 2.5rem;
     align-items: center;
     margin-left: auto;
+  }
+
+  .nav-item-wrapper {
+    position: relative;
   }
 
   .nav-link {
@@ -132,31 +357,158 @@ const {
     flex-direction: column;
     align-items: center;
     gap: 0.25rem;
-    animation: slideInDown 0.6s ease-out;
-    animation-fill-mode: both;
     letter-spacing: 0.02em;
-  }
-
-  .nav-link:nth-child(1) { animation-delay: 0.1s; }
-  .nav-link:nth-child(2) { animation-delay: 0.2s; }
-  .nav-link:nth-child(3) { animation-delay: 0.3s; }
-  .nav-link:nth-child(4) { animation-delay: 0.4s; }
-  .nav-link:nth-child(5) { animation-delay: 0.5s; }
-
-  @keyframes slideInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   .nav-link-text {
     position: relative;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .dropdown-icon {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link:hover .dropdown-icon {
+    transform: translateY(2px);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    min-width: 280px;
+    max-width: 320px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .nav-item-wrapper:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 0.5rem;
+  }
+
+  .dropdown-item {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-bottom: 0.25rem;
+  }
+
+  .dropdown-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .dropdown-item:hover {
+    background: #f3f4f6;
+  }
+
+  .dropdown-icon-wrapper {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: #e0f2fe;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0284c7;
+  }
+
+  .dropdown-icon-wrapper svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dropdown-content {
+    flex: 1;
+  }
+
+  .dropdown-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 0.15rem 0;
+  }
+
+  .dropdown-description {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .dropdown-menu-large {
+    min-width: 600px;
+    max-width: 750px;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .dropdown-category {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .category-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #3b82f6;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 0.75rem 0;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .category-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .dropdown-menu-large .dropdown-item {
+    padding: 0.6rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .dropdown-menu-large .dropdown-icon-wrapper {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dropdown-menu-large .dropdown-icon-wrapper svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .dropdown-menu-large .dropdown-title {
+    font-size: 0.8rem;
+  }
+
+  .dropdown-menu-large .dropdown-description {
+    font-size: 0.7rem;
+    line-height: 1.3;
   }
 
   .nav-link:hover {
@@ -189,7 +541,6 @@ const {
   }
 
   .nav-link-button:hover {
-    transform: translateY(-2px);
     box-shadow: 0 6px 25px rgba(26, 58, 82, 0.3);
     background: linear-gradient(135deg, #2d5a7b 0%, #1a3a52 100%);
   }
@@ -202,38 +553,120 @@ const {
     .nav {
       gap: 1.5rem;
     }
+
+    .nav-link {
+      font-size: 0.85rem;
+    }
+
+    .dropdown-menu {
+      min-width: 260px;
+      max-width: 300px;
+    }
+
+    .dropdown-menu-large {
+      min-width: 500px;
+      max-width: 650px;
+      gap: 1rem;
+    }
   }
 
   @media (max-width: 768px) {
     .header {
-      padding: 1rem;
+      padding: 0.8rem 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-radius: 0;
     }
 
     .header-container {
-      flex-wrap: wrap;
-      gap: 1rem;
+      flex-direction: column;
+      gap: 0.75rem;
     }
 
     .logo-wrapper {
       width: 100%;
       justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .logo {
+      height: 32px;
+    }
+
+    .company-logo {
+      height: 26px;
     }
 
     .nav {
       width: 100%;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.5rem;
       justify-content: center;
       order: 3;
     }
 
     .nav-link {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
     }
 
     .nav-link-button {
-      padding: 0.6rem 1.25rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.7rem;
+    }
+
+    .dropdown-menu,
+    .dropdown-menu-large {
+      position: fixed;
+      left: 0.5rem;
+      right: 0.5rem;
+      top: auto;
+      transform: none;
+      max-width: none;
+      min-width: 0;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .dropdown-menu-large {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+
+    .dropdown-item {
+      padding: 0.6rem;
+    }
+
+    .dropdown-title {
       font-size: 0.8rem;
+    }
+
+    .dropdown-description {
+      font-size: 0.7rem;
     }
   }
 </style>
+
+
+<script>
+  let lastScrollTop = 0;
+  const header = document.getElementById('header');
+  
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > 100) {
+      if (scrollTop > lastScrollTop) {
+        header?.classList.add('hidden');
+      } else {
+        header?.classList.remove('hidden');
+      }
+    } else {
+      header?.classList.remove('hidden');
+    }
+    
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  });
+</script>

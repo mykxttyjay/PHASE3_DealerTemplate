@@ -1,0 +1,408 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  features?: string[];
+  ctaText?: string;
+  ctaLink?: string;
+  badge?: string;
+  leftTitle?: string;
+  leftBadge?: string;
+  leftBackgroundImage?: string;
+}
+
+const {
+  title = "READY TO GROW YOUR BUSINESS?",
+  subtitle = "Get expert marketing strategies tailored for Denver businesses. Let's discuss how we can help you succeed.",
+  features = [
+    "Free 30-minute strategy session",
+    "Custom campaign recommendations",
+    "No commitment or pressure"
+  ],
+  ctaText = "SCHEDULE FREE CONSULTATION",
+  ctaLink = "#contact",
+  badge = "LIMITED TIME OFFER",
+  leftTitle = "GET YOUR FREE MARKETING CONSULTATION",
+  leftBadge = "LIMITED TIME OFFER",
+  leftBackgroundImage = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=1000&fit=crop"
+} = Astro.props;
+---
+
+<div class="popup-overlay" id="popupModal">
+  <div class="popup-container">
+    <button class="popup-close" id="closePopup" aria-label="Close popup">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <div class="popup-content">
+      <div class="popup-left" style={`background-image: url('${leftBackgroundImage}')`}>
+        <div class="popup-left-overlay"></div>
+        <div class="popup-left-content">
+          <div class="left-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            {leftBadge}
+          </div>
+          <h2 class="left-title">{leftTitle}</h2>
+        </div>
+      </div>
+
+      <div class="popup-right">
+        <h3 class="popup-title">{title}</h3>
+        <p class="popup-subtitle">{subtitle}</p>
+        
+        <ul class="popup-features">
+          {features.map((feature) => (
+            <li class="feature-item">
+              <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <a href={ctaLink} class="popup-cta" id="popupCta">{ctaText}</a>
+
+        <div class="popup-footer">
+          <div class="footer-badges">
+            <span class="badge-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              20+ Years Experience
+            </span>
+            <span class="badge-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              Denver Experts
+            </span>
+          </div>
+          <button class="popup-dismiss" id="dismissPopup">No thanks, I'll browse first</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .popup-container {
+    background: white;
+    border-radius: 12px;
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+  }
+
+  .popup-overlay.show .popup-container {
+    transform: scale(1);
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #e5e7eb;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: #4b5563;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .popup-close:hover {
+    background: white;
+    border-color: #d1d5db;
+    color: #1f2937;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .popup-close svg {
+    stroke-width: 2.5;
+  }
+
+  .popup-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    min-height: 500px;
+  }
+
+  .popup-left {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .popup-left-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(26, 58, 82, 0.92) 0%, rgba(15, 37, 55, 0.95) 100%);
+    z-index: 1;
+  }
+
+  .popup-left-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .left-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+  }
+
+  .left-badge svg {
+    flex-shrink: 0;
+  }
+
+  .left-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 1rem 0;
+    color: white;
+  }
+
+  .left-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .popup-right {
+    padding: 3rem 2.5rem 1.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .popup-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a3a52;
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
+  }
+
+  .popup-subtitle {
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.6;
+    margin: 0 0 2rem 0;
+  }
+
+  .popup-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+  .check-icon {
+    color: #10b981;
+    flex-shrink: 0;
+  }
+
+  .popup-cta {
+    background: #1a3a52;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .popup-cta:hover {
+    background: #2d5a7b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 58, 82, 0.3);
+  }
+
+  .popup-footer {
+    margin-top: auto;
+  }
+
+  .footer-badges {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.75rem 0;
+  }
+
+  .badge-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  .badge-item svg {
+    color: #10b981;
+  }
+
+  .popup-dismiss {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 1.25rem 0 0.75rem 0;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .popup-dismiss:hover {
+    color: #1a3a52;
+  }
+
+  @media (max-width: 768px) {
+    .popup-content {
+      grid-template-columns: 1fr;
+    }
+
+    .popup-left {
+      padding: 2rem 1.5rem;
+      min-height: auto;
+    }
+
+    .left-title {
+      font-size: 1.4rem;
+    }
+
+    .popup-right {
+      padding: 2rem 1.5rem;
+    }
+
+    .popup-title {
+      font-size: 1.3rem;
+    }
+
+    .popup-close {
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 36px;
+      height: 36px;
+    }
+  }
+</style>
+
+<script>
+  setTimeout(() => {
+    const popup = document.getElementById('popupModal');
+    const hasSeenPopup = sessionStorage.getItem('hasSeenPopup');
+    
+    if (!hasSeenPopup && popup) {
+      popup.classList.add('show');
+    }
+  }, 1500);
+
+  const closePopup = document.getElementById('closePopup');
+  const dismissPopup = document.getElementById('dismissPopup');
+  const popupCta = document.getElementById('popupCta');
+  const popup = document.getElementById('popupModal');
+
+  function hidePopup() {
+    if (popup) {
+      popup.classList.remove('show');
+      sessionStorage.setItem('hasSeenPopup', 'true');
+    }
+  }
+
+  closePopup?.addEventListener('click', hidePopup);
+  dismissPopup?.addEventListener('click', hidePopup);
+  popupCta?.addEventListener('click', hidePopup);
+
+  popup?.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      hidePopup();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      hidePopup();
+    }
+  });
+</script>

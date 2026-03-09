@@ -25,7 +25,13 @@ const {
     <div class="final-cta-content">
       <h2 class="final-cta-title">{title}</h2>
       <p class="final-cta-description">{description}</p>
-      <a href={ctaLink} class="final-cta-button">{ctaText}</a>
+      <a href={ctaLink} class="final-cta-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span>{ctaText}</span>
+      </a>
     </div>
   </div>
 </section>
@@ -89,7 +95,9 @@ const {
   }
 
   .final-cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 0.875rem 2.5rem;
     background: white;
     color: #1a3a52;
@@ -103,36 +111,73 @@ const {
     text-transform: uppercase;
   }
 
+  .final-cta-button svg {
+    transition: transform 0.3s ease;
+  }
+
   .final-cta-button:hover {
     background: transparent;
     color: white;
     transform: translateY(-2px);
   }
 
+  .final-cta-button:hover svg {
+    transform: scale(1.15);
+  }
+
   @media (max-width: 768px) {
     .final-cta {
-      padding: 4rem 1rem;
-      min-height: 300px;
+      padding: 3rem 1rem;
+      min-height: 350px;
       background-attachment: scroll;
     }
 
     .final-cta-content {
-      padding: 2rem;
+      padding: 2rem 1.5rem;
+      border-radius: 12px;
     }
 
     .final-cta-title {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin-bottom: 1rem;
+      line-height: 1.3;
     }
 
     .final-cta-description {
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+
+    .final-cta-button {
+      padding: 0.85rem 1.75rem;
+      font-size: 0.75rem;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .final-cta {
+      padding: 2.5rem 0.75rem;
+      min-height: 320px;
+    }
+
+    .final-cta-content {
+      padding: 1.75rem 1.25rem;
+    }
+
+    .final-cta-title {
+      font-size: 1.25rem;
+    }
+
+    .final-cta-description {
+      font-size: 0.85rem;
     }
 
     .final-cta-button {
       padding: 0.75rem 1.5rem;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
   }
 </style>

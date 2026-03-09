@@ -13,8 +13,8 @@ interface Props {
 }
 
 const {
-  title = "FAQS",
-  subtitle = "Got questions? We've got answers. Here are some of the most common questions we hear from Denver businesses.",
+  title = "Frequently Asked Questions",
+  subtitle = "Everything you need to know about our services",
   faqs = [],
   ctaText = "STILL HAVE QUESTIONS? CONTACT US",
   ctaLink = "#contact",
@@ -29,25 +29,39 @@ const {
     </div>
     
     {faqs.length > 0 && (
-      <div class="faq-grid">
+      <div class="faq-list">
         {faqs.map((faq, index) => (
-          <div class="faq-item" style={`animation-delay: ${index * 0.1}s`}>
-            <div class="faq-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-              </svg>
+          <div class="faq-item" data-faq-index={index} style={`animation-delay: ${index * 0.1}s`}>
+            <button class="faq-question-button" aria-expanded="false">
+              <div class="faq-question-content">
+                <div class="faq-number">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
+                <h3 class="faq-question">{faq.question}</h3>
+              </div>
+              <div class="faq-toggle-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </div>
+            </button>
+            <div class="faq-answer-wrapper">
+              <p class="faq-answer">{faq.answer}</p>
             </div>
-            <h3 class="faq-question">{faq.question}</h3>
-            <p class="faq-answer">{faq.answer}</p>
           </div>
         ))}
       </div>
     )}
 
     <div class="faq-cta">
-      <a href={ctaLink} class="faq-button">{ctaText}</a>
+      <a href={ctaLink} class="faq-button">
+        <span>{ctaText}</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          <path d="M9 10h.01M15 10h.01"></path>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
@@ -55,7 +69,7 @@ const {
 <style>
   .faq-section {
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f2 100%);
+    background: #dbedf4;
     position: relative;
     overflow: hidden;
   }
@@ -126,7 +140,6 @@ const {
     color: #1a3a52;
     margin-bottom: 1rem;
     letter-spacing: -0.01em;
-    text-transform: uppercase;
   }
 
   .faq-subtitle {
@@ -137,69 +150,118 @@ const {
     margin: 0 auto;
   }
 
-  .faq-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
     margin-bottom: 4rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .faq-item {
     background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    border: 2px solid #e8e8e8;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     animation: fadeInUp 0.8s ease-out;
     animation-fill-mode: both;
   }
 
-  .faq-item::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(26, 58, 82, 0.05) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
   .faq-item:hover {
-    box-shadow: 0 12px 40px rgba(26, 58, 82, 0.15);
     border-color: #1a3a52;
-    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(26, 58, 82, 0.1);
   }
 
-  .faq-icon {
-    width: 50px;
-    height: 50px;
+  .faq-item.active {
+    border-color: #1a3a52;
+    box-shadow: 0 4px 16px rgba(26, 58, 82, 0.12);
+  }
+
+  .faq-question-button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.75rem 2rem;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .faq-question-button:hover {
+    background: rgba(26, 58, 82, 0.02);
+  }
+
+  .faq-question-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+  }
+
+  .faq-number {
+    width: 48px;
+    height: 48px;
     background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
-    position: relative;
-    z-index: 1;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(26, 58, 82, 0.2);
   }
 
   .faq-question {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: #1a3a52;
-    margin-bottom: 1rem;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: -0.01em;
     line-height: 1.4;
-    position: relative;
-    z-index: 1;
+    text-transform: none;
+  }
+
+  .faq-toggle-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a3a52;
+    transition: transform 0.3s ease;
+    border-radius: 8px;
+    background: rgba(26, 58, 82, 0.08);
+  }
+
+  .faq-toggle-icon svg {
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.active .faq-toggle-icon svg {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+
+  .faq-item.active .faq-answer-wrapper {
+    max-height: 500px;
+    padding: 0 2rem 2rem 2rem;
   }
 
   .faq-answer {
@@ -207,8 +269,8 @@ const {
     color: #666;
     line-height: 1.8;
     margin: 0;
+    padding-left: 4rem;
     position: relative;
-    z-index: 1;
   }
 
   .faq-cta {
@@ -218,7 +280,9 @@ const {
   }
 
   .faq-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 1rem 3rem;
     background: white;
     color: #1a3a52;
@@ -233,6 +297,10 @@ const {
     box-shadow: none;
   }
 
+  .faq-button svg {
+    transition: transform 0.3s ease;
+  }
+
   .faq-button:hover {
     background: #1a3a52;
     color: white;
@@ -241,9 +309,13 @@ const {
     box-shadow: 0 8px 25px rgba(26, 58, 82, 0.25);
   }
 
+  .faq-button:hover svg {
+    transform: scale(1.1);
+  }
+
   @media (max-width: 768px) {
     .faq-section {
-      padding: 4rem 1.5rem;
+      padding: 3rem 1rem;
     }
 
     .faq-section::before,
@@ -252,46 +324,168 @@ const {
     }
 
     .faq-header {
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
 
     .faq-title {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       margin-bottom: 0.75rem;
     }
 
     .faq-subtitle {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
     }
 
-    .faq-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      margin-bottom: 2.5rem;
+    .faq-list {
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    .faq-item {
-      padding: 2rem;
+    .faq-question-button {
+      padding: 1.25rem 1.25rem;
+      gap: 1rem;
     }
 
-    .faq-icon {
-      width: 45px;
-      height: 45px;
-      margin-bottom: 1.25rem;
+    .faq-question-content {
+      gap: 1rem;
+    }
+
+    .faq-number {
+      width: 42px;
+      height: 42px;
+      font-size: 1rem;
+      border-radius: 10px;
     }
 
     .faq-question {
-      font-size: 1rem;
-      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.3;
+    }
+
+    .faq-toggle-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .faq-toggle-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .faq-item.active .faq-answer-wrapper {
+      padding: 0 1.25rem 1.5rem 1.25rem;
     }
 
     .faq-answer {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      padding-left: 3.5rem;
     }
 
     .faq-button {
-      padding: 0.9rem 2.5rem;
+      padding: 0.85rem 2rem;
+      font-size: 0.75rem;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .faq-section {
+      padding: 2.5rem 0.75rem;
+    }
+
+    .faq-title {
+      font-size: 1.4rem;
+    }
+
+    .faq-subtitle {
       font-size: 0.85rem;
+    }
+
+    .faq-list {
+      gap: 0.85rem;
+    }
+
+    .faq-question-button {
+      padding: 1.15rem 1rem;
+      gap: 0.85rem;
+    }
+
+    .faq-question-content {
+      gap: 0.85rem;
+    }
+
+    .faq-number {
+      width: 38px;
+      height: 38px;
+      font-size: 0.95rem;
+      border-radius: 8px;
+    }
+
+    .faq-question {
+      font-size: 0.9rem;
+    }
+
+    .faq-toggle-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .faq-toggle-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .faq-item.active .faq-answer-wrapper {
+      padding: 0 1rem 1.25rem 1rem;
+    }
+
+    .faq-answer {
+      font-size: 0.8rem;
+      padding-left: 3rem;
+    }
+
+    .faq-button {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.7rem;
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach((item) => {
+      const button = item.querySelector('.faq-question-button') as HTMLButtonElement;
+      
+      if (button) {
+        button.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+          
+          // Close all other FAQ items
+          faqItems.forEach((otherItem) => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('active');
+              const otherButton = otherItem.querySelector('.faq-question-button') as HTMLButtonElement;
+              if (otherButton) {
+                otherButton.setAttribute('aria-expanded', 'false');
+              }
+            }
+          });
+          
+          // Toggle current item
+          if (isActive) {
+            item.classList.remove('active');
+            button.setAttribute('aria-expanded', 'false');
+          } else {
+            item.classList.add('active');
+            button.setAttribute('aria-expanded', 'true');
+          }
+        });
+      }
+    });
+  });
+</script>

@@ -28,7 +28,7 @@ const {
         PREMIUM VENUE NETWORK
       </div>
       
-      <h2 class="venues-title">{title}</h2>
+      <h2 class="venues-title" set:html={title}></h2>
       <p class="venues-description" set:html={description}></p>
       
       {features.length > 0 && (
@@ -46,7 +46,13 @@ const {
         </ul>
       )}
       
-      <a href={ctaLink} class="venues-cta">{ctaText}</a>
+      <a href={ctaLink} class="venues-cta">
+        <span>{ctaText}</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
     
     {imageUrl && (
@@ -63,7 +69,7 @@ const {
 <style>
   .venues {
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f7 100%);
+    background: #ecf2f8;
     position: relative;
     overflow: hidden;
   }
@@ -164,7 +170,9 @@ const {
   }
 
   .venues-cta {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 0.9rem 2.2rem;
     background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
     color: white;
@@ -179,6 +187,10 @@ const {
     box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
   }
 
+  .venues-cta svg {
+    transition: transform 0.3s ease;
+  }
+
   .venues-cta:hover {
     background: white;
     color: #1a3a52;
@@ -187,9 +199,24 @@ const {
     box-shadow: 0 8px 25px rgba(26, 58, 82, 0.25);
   }
 
+  .venues-cta:hover svg {
+    transform: translateX(5px);
+  }
+
   .venues-image-wrapper {
     position: relative;
     animation: slideInRight 0.8s ease-out;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .venues-image {
@@ -207,9 +234,20 @@ const {
     display: block;
   }
 
+  @media (max-width: 1024px) {
+    .venues-container {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+
+    .venues-image-wrapper {
+      order: -1;
+    }
+  }
+
   @media (max-width: 768px) {
     .venues {
-      padding: 4rem 1.5rem;
+      padding: 3rem 1rem;
     }
 
     .venues-container {
@@ -217,7 +255,7 @@ const {
     }
 
     .venues-badge {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       padding: 0.5rem 1rem;
       margin-bottom: 1rem;
     }
@@ -225,36 +263,73 @@ const {
     .venues-title {
       font-size: 1.5rem;
       margin-bottom: 1rem;
+      line-height: 1.3;
     }
 
     .venues-description {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .venues-features {
+      margin-bottom: 2rem;
     }
 
     .feature-item {
-      font-size: 0.9rem;
-      margin-bottom: 0.8rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.9rem;
       gap: 0.75rem;
     }
 
     .feature-icon {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       margin-top: 1px;
     }
 
+    .feature-icon svg {
+      width: 14px;
+      height: 14px;
+    }
+
     .venues-cta {
-      padding: 0.8rem 1.8rem;
-      font-size: 0.8rem;
+      padding: 0.85rem 1.75rem;
+      font-size: 0.75rem;
+      width: 100%;
+      justify-content: center;
     }
 
     .venues-image {
       border-radius: 8px;
+      min-height: 250px;
     }
 
     .image-decoration {
       display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .venues {
+      padding: 2.5rem 0.75rem;
+    }
+
+    .venues-title {
+      font-size: 1.35rem;
+    }
+
+    .venues-description {
+      font-size: 0.85rem;
+    }
+
+    .feature-item {
+      font-size: 0.8rem;
+    }
+
+    .venues-cta {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.7rem;
     }
   }
 </style>

@@ -19,7 +19,12 @@ const {
     <div class="consult-content">
       <h2 class="consult-title">{title}</h2>
       <p class="consult-description" set:html={description}></p>
-      <a href={ctaLink} class="consult-button">{ctaText}</a>
+      <a href={ctaLink} class="consult-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>{ctaText}</span>
+      </a>
     </div>
   </div>
 </section>
@@ -76,7 +81,9 @@ const {
   }
 
   .consult-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 1rem 2.8rem;
     background: white;
     color: #1a3a52;
@@ -91,6 +98,10 @@ const {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 
+  .consult-button svg {
+    transition: transform 0.3s ease;
+  }
+
   .consult-button:hover {
     background: transparent;
     color: white;
@@ -99,34 +110,60 @@ const {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   }
 
+  .consult-button:hover svg {
+    transform: scale(1.1);
+  }
+
   @media (max-width: 768px) {
     .consult-section {
-      padding: 4rem 1.5rem;
-    }
-
-    .consult-section::before,
-    .consult-section::after {
-      display: none;
+      padding: 3rem 1rem;
     }
 
     .consult-content {
-      padding: 2.5rem 1.5rem;
+      padding: 2rem 1.25rem;
       border-radius: 12px;
     }
 
     .consult-title {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin-bottom: 1rem;
+      line-height: 1.3;
     }
 
     .consult-description {
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
     }
 
     .consult-button {
-      padding: 0.9rem 2.2rem;
+      padding: 0.85rem 1.75rem;
+      font-size: 0.75rem;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .consult-section {
+      padding: 2.5rem 0.75rem;
+    }
+
+    .consult-content {
+      padding: 1.75rem 1rem;
+    }
+
+    .consult-title {
+      font-size: 1.25rem;
+    }
+
+    .consult-description {
       font-size: 0.85rem;
+    }
+
+    .consult-button {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.7rem;
     }
   }
 </style>

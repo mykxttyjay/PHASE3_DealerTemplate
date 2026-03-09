@@ -30,59 +30,167 @@ const {
       <p class="services-subtitle" set:html={subtitle}></p>
     </div>
 
-    <div class="services-grid">
-      {services.map((service) => (
-        <div class="service-card">
-          {service.image && (
-            <div class="service-image">
-              <img src={service.image} alt={service.title} />
+    <div class="carousel-wrapper">
+      <button class="carousel-btn carousel-btn-prev" aria-label="Previous">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      
+      <div class="services-carousel">
+        <div class="carousel-track">
+          {services.map((service) => (
+            <div class="service-card">
+              {service.image && (
+                <div class="service-image">
+                  <img src={service.image} alt={service.title} />
+                </div>
+              )}
+              <div class="service-content">
+                <div class="service-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    {service.icon === "billboard" && (
+                      <>
+                        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                        <path d="M16 3h-2v4h2V3z"></path>
+                        <path d="M10 3H8v4h2V3z"></path>
+                      </>
+                    )}
+                    {service.icon === "social" && (
+                      <>
+                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"></path>
+                      </>
+                    )}
+                    {service.icon === "website" && (
+                      <>
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                      </>
+                    )}
+                    {service.icon === "leads" && (
+                      <>
+                        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
+                      </>
+                    )}
+                    {service.icon === "people" && (
+                      <>
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </>
+                    )}
+                    {service.icon === "engagement" && (
+                      <>
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                      </>
+                    )}
+                    {service.icon === "brand" && (
+                      <>
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                      </>
+                    )}
+                    {service.icon === "journey" && (
+                      <>
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                      </>
+                    )}
+                  </svg>
+                </div>
+                <h3 class="service-title">{service.title}</h3>
+                <p class="service-description">{service.description}</p>
+              </div>
             </div>
-          )}
-          <div class="service-content">
-            <div class="service-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                {service.icon === "billboard" && (
-                  <>
-                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
-                    <path d="M16 3h-2v4h2V3z"></path>
-                    <path d="M10 3H8v4h2V3z"></path>
-                  </>
-                )}
-                {service.icon === "social" && (
-                  <>
-                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"></path>
-                  </>
-                )}
-                {service.icon === "website" && (
-                  <>
-                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                  </>
-                )}
-                {service.icon === "leads" && (
-                  <>
-                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
-                  </>
-                )}
-              </svg>
+          ))}
+          {services.map((service) => (
+            <div class="service-card">
+              {service.image && (
+                <div class="service-image">
+                  <img src={service.image} alt={service.title} />
+                </div>
+              )}
+              <div class="service-content">
+                <div class="service-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    {service.icon === "billboard" && (
+                      <>
+                        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                        <path d="M16 3h-2v4h2V3z"></path>
+                        <path d="M10 3H8v4h2V3z"></path>
+                      </>
+                    )}
+                    {service.icon === "social" && (
+                      <>
+                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"></path>
+                      </>
+                    )}
+                    {service.icon === "website" && (
+                      <>
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                      </>
+                    )}
+                    {service.icon === "leads" && (
+                      <>
+                        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
+                      </>
+                    )}
+                    {service.icon === "people" && (
+                      <>
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </>
+                    )}
+                    {service.icon === "engagement" && (
+                      <>
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                      </>
+                    )}
+                    {service.icon === "brand" && (
+                      <>
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                      </>
+                    )}
+                    {service.icon === "journey" && (
+                      <>
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                      </>
+                    )}
+                  </svg>
+                </div>
+                <h3 class="service-title">{service.title}</h3>
+                <p class="service-description">{service.description}</p>
+              </div>
             </div>
-            <h3 class="service-title">{service.title}</h3>
-            <p class="service-description">{service.description}</p>
-          </div>
+          ))}
         </div>
-      ))}
+      </div>
+
+      <button class="carousel-btn carousel-btn-next" aria-label="Next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
     </div>
 
-    <div class="services-action">
-      <a href={ctaLink} class="action-button">{ctaText}</a>
-    </div>
+    <div class="carousel-dots"></div>
   </div>
 </section>
 
 <style>
   .services {
-    padding: 6rem 2rem;
-    background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f2 100%);
+    padding: 6rem 2rem 3rem;
+    background: #dbedf4;
     position: relative;
     overflow: hidden;
   }
@@ -119,26 +227,92 @@ const {
     font-weight: 500;
   }
 
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 4rem;
+  .carousel-wrapper {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .services-carousel {
+    overflow: hidden;
+    padding: 1rem 0;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 2rem;
+    transition: transform 0.8s ease;
   }
 
   .service-card {
+    flex: 0 0 calc(25% - 1.5rem);
+    min-width: calc(25% - 1.5rem);
     background: white;
     border-radius: 12px;
-    border: 1px solid #e8e8e8;
+    border: 1px solid #d1d5db;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    animation: fadeInUp 0.8s ease-out;
-    animation-fill-mode: both;
     position: relative;
     overflow: hidden;
-    height: 100%;
+    height: 480px;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 2px solid #1a3a52;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: #1a3a52;
+  }
+
+  .carousel-btn:hover {
+    background: #1a3a52;
+    color: white;
+    box-shadow: 0 4px 15px rgba(26, 58, 82, 0.3);
+  }
+
+  .carousel-btn-prev {
+    left: -25px;
+  }
+
+  .carousel-btn-next {
+    right: -25px;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+
+  .carousel-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #0d2438;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .carousel-dot.active {
+    background: #0d2438;
+    width: 50px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(13, 36, 56, 0.5);
   }
 
   .service-card::before {
@@ -155,7 +329,6 @@ const {
   }
 
   .service-card:hover {
-    box-shadow: 0 12px 40px rgba(26, 58, 82, 0.15);
     border-color: #1a3a52;
   }
 
@@ -166,19 +339,36 @@ const {
     position: relative;
     z-index: 1;
     margin: 0;
-    border-radius: 12px 12px 0 0;
+    border-radius: 16px 16px 0 0;
+    flex-shrink: 0;
+  }
+
+  .service-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(26, 58, 82, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .service-card:hover .service-image::after {
+    opacity: 1;
   }
 
   .service-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
     display: block;
   }
 
   .service-card:hover .service-image img {
-    transform: scale(1.08);
+    transform: scale(1.1);
   }
 
   .service-content {
@@ -188,7 +378,7 @@ const {
     align-items: flex-start;
     position: relative;
     z-index: 1;
-    flex-grow: 1;
+    flex: 1;
   }
 
   .service-icon {
@@ -203,6 +393,7 @@ const {
     margin-bottom: 1.2rem;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
+    flex-shrink: 0;
   }
   
   .service-title {
@@ -212,51 +403,45 @@ const {
     margin-bottom: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    min-height: 2.4rem;
   }
 
   .service-description {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #666;
-    line-height: 1.7;
+    line-height: 1.6;
     margin: 0;
+    flex: 1;
   }
 
-  .services-action {
-    display: flex;
-    justify-content: center;
-    animation: fadeInUp 0.8s ease-out 0.5s both;
-    position: relative;
-    z-index: 2;
-    margin-top: 1rem;
+  @media (max-width: 1200px) {
+    .carousel-btn-prev {
+      left: -50px;
+    }
+
+    .carousel-btn-next {
+      right: -50px;
+    }
   }
 
-  .action-button {
-    display: inline-block;
-    padding: 0.8rem 3rem;
-    background: white;
-    color: #1a3a52;
-    text-decoration: none;
-    border: 2px solid #1a3a52;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    box-shadow: none;
-  }
+  @media (max-width: 1024px) {
+    .carousel-btn-prev {
+      left: -15px;
+    }
 
-  .action-button:hover {
-    background: #1a3a52;
-    color: white;
-    border-color: #1a3a52;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(26, 58, 82, 0.25);
+    .carousel-btn-next {
+      right: -15px;
+    }
+
+    .carousel-btn {
+      width: 45px;
+      height: 45px;
+    }
   }
 
   @media (max-width: 768px) {
     .services {
-      padding: 4rem 1.5rem;
+      padding: 3rem 1rem;
     }
 
     .services::before,
@@ -265,52 +450,266 @@ const {
     }
 
     .services-header {
-      margin-bottom: 3rem;
-    }
-
-    .services-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     .services-title {
-      font-size: 1.8rem;
-    }
-
-    .services-subtitle {
-      font-size: 1rem;
-    }
-
-    .service-card {
-      border-radius: 8px;
-    }
-
-    .service-image {
-      height: 150px;
-    }
-
-    .service-content {
-      padding: 1.5rem;
-    }
-
-    .service-icon {
-      width: 60px;
-      height: 60px;
+      font-size: 1.6rem;
       margin-bottom: 1rem;
     }
 
+    .services-subtitle {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .carousel-wrapper {
+      margin-bottom: 1.5rem;
+      padding: 0 0.5rem;
+    }
+
+    .service-card {
+      flex: 0 0 100%;
+      min-width: 100%;
+      height: auto;
+      min-height: 400px;
+    }
+
+    .carousel-btn {
+      width: 36px;
+      height: 36px;
+    }
+
+    .carousel-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .carousel-btn-prev {
+      left: -5px;
+    }
+
+    .carousel-btn-next {
+      right: -5px;
+    }
+
+    .service-image {
+      height: 140px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .service-content {
+      padding: 1.25rem;
+    }
+
+    .service-icon {
+      width: 55px;
+      height: 55px;
+      margin-bottom: 0.9rem;
+    }
+
+    .service-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
     .service-title {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
+      min-height: auto;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
     }
 
     .service-description {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
+      line-height: 1.5;
     }
 
-    .cta-button {
-      padding: 0.9rem 2.5rem;
+    .carousel-dots {
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .carousel-dot {
+      width: 14px;
+      height: 14px;
+    }
+
+    .carousel-dot.active {
+      width: 40px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .services {
+      padding: 2.5rem 0.75rem;
+    }
+
+    .services-title {
+      font-size: 1.4rem;
+    }
+
+    .services-subtitle {
       font-size: 0.85rem;
+    }
+
+    .service-card {
+      min-height: 380px;
+    }
+
+    .service-image {
+      height: 130px;
+    }
+
+    .service-content {
+      padding: 1rem;
+    }
+
+    .service-icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    .service-title {
+      font-size: 0.9rem;
+    }
+
+    .service-description {
+      font-size: 0.75rem;
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.carousel-track') as HTMLElement;
+    const prevBtn = document.querySelector('.carousel-btn-prev') as HTMLButtonElement;
+    const nextBtn = document.querySelector('.carousel-btn-next') as HTMLButtonElement;
+    const dotsContainer = document.querySelector('.carousel-dots') as HTMLElement;
+    const cards = document.querySelectorAll('.service-card');
+    
+    let currentIndex = 0;
+    const cardsPerView = window.innerWidth <= 768 ? 1 : 4;
+    const totalCards = cards.length / 2; 
+    const maxIndex = totalCards - cardsPerView;
+    let autoSlideInterval: number;
+    let isTransitioning = false;
+    
+    
+    for (let i = 0; i <= maxIndex; i++) {
+      const dot = document.createElement('button');
+      dot.classList.add('carousel-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+    
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    function updateCarousel(smooth = true) {
+      const cardWidth = (track.children[0] as HTMLElement).offsetWidth;
+      const gap = 32; 
+      const offset = -(currentIndex * (cardWidth + gap));
+      
+      if (!smooth) {
+        track.style.transition = 'none';
+      } else {
+        track.style.transition = 'transform 0.8s ease';
+      }
+      
+      track.style.transform = `translateX(${offset}px)`;
+      
+      const dotIndex = currentIndex % totalCards;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === dotIndex);
+      });
+      
+      prevBtn.disabled = false;
+      nextBtn.disabled = false;
+    }
+    
+    function goToSlide(index: number) {
+      if (isTransitioning) return;
+      currentIndex = index;
+      updateCarousel();
+      resetAutoSlide();
+    }
+    
+    function nextSlide() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex++;
+      updateCarousel();
+      
+      setTimeout(() => {
+        if (currentIndex >= totalCards) {
+          currentIndex = 0;
+          updateCarousel(false);
+        }
+        isTransitioning = false;
+      }, 800);
+    }
+    
+    function prevSlide() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      
+      if (currentIndex === 0) {
+        currentIndex = totalCards;
+        updateCarousel(false);
+        setTimeout(() => {
+          currentIndex--;
+          updateCarousel();
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 800);
+        }, 50);
+      } else {
+        currentIndex--;
+        updateCarousel();
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 800);
+      }
+      resetAutoSlide();
+    }
+    
+    function startAutoSlide() {
+      autoSlideInterval = window.setInterval(() => {
+        nextSlide();
+      }, 3000);
+    }
+    
+    function stopAutoSlide() {
+      clearInterval(autoSlideInterval);
+    }
+    
+    function resetAutoSlide() {
+      stopAutoSlide();
+      startAutoSlide();
+    }
+    
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      resetAutoSlide();
+    });
+    
+    const carouselWrapper = document.querySelector('.carousel-wrapper') as HTMLElement;
+    carouselWrapper.addEventListener('mouseenter', stopAutoSlide);
+    carouselWrapper.addEventListener('mouseleave', startAutoSlide);
+    
+    let resizeTimer: number;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        currentIndex = 0;
+        updateCarousel(false);
+        resetAutoSlide();
+      }, 250);
+    });
+    
+    updateCarousel(false);
+    startAutoSlide();
+  });
+</script>
