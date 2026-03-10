@@ -1,0 +1,406 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  title = "Get In Touch",
+  subtitle = "Fill out the form below and we'll get back to you within 24 hours."
+} = Astro.props;
+---
+
+<div class="contact-modal-overlay" id="contactModal">
+  <div class="contact-modal-container">
+    <button class="contact-modal-close" id="closeContactModal" aria-label="Close contact form">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <div class="contact-modal-content">
+      <div class="contact-modal-header">
+        <h2 class="contact-modal-title">{title}</h2>
+        <p class="contact-modal-subtitle">{subtitle}</p>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="firstName" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="lastName" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" />
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company Name</label>
+          <input type="text" id="company" name="company" />
+        </div>
+
+        <div class="form-group">
+          <label for="service">Service Interested In</label>
+          <select id="service" name="service">
+            <option value="">Select a service</option>
+            <option value="billboard">Indoor Billboard Advertising</option>
+            <option value="social">Social Media Marketing</option>
+            <option value="website">Website Design</option>
+            <option value="ppc">PPC Campaign Management</option>
+            <option value="seo">SEO Services</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="contact-submit-btn">
+          <span>Send Message</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <h3>Thank You!</h3>
+        <p>Your message has been sent successfully. We'll get back to you soon.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .contact-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .contact-modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .contact-modal-container {
+    background: white;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .contact-modal-overlay.show .contact-modal-container {
+    transform: scale(1);
+  }
+
+  .contact-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: #4b5563;
+  }
+
+  .contact-modal-close:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #1f2937;
+  }
+
+  .contact-modal-content {
+    padding: 2.5rem;
+  }
+
+  .contact-modal-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .contact-modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a3a52;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .contact-modal-subtitle {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: white;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #1a3a52;
+    box-shadow: 0 0 0 3px rgba(26, 58, 82, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .contact-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 0.5rem;
+  }
+
+  .contact-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 58, 82, 0.3);
+  }
+
+  .contact-submit-btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .contact-submit-btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .form-success.show {
+    display: block;
+  }
+
+  .form-success svg {
+    color: #10b981;
+    margin: 0 auto 1rem;
+  }
+
+  .form-success h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a3a52;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .form-success p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .contact-modal-content {
+      padding: 2rem 1.5rem;
+    }
+
+    .contact-modal-title {
+      font-size: 1.5rem;
+    }
+
+    .contact-modal-subtitle {
+      font-size: 0.9rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .contact-form {
+      gap: 1rem;
+    }
+
+    .contact-submit-btn {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-modal-content {
+      padding: 1.5rem 1rem;
+    }
+
+    .contact-modal-title {
+      font-size: 1.35rem;
+    }
+
+    .contact-modal-close {
+      width: 36px;
+      height: 36px;
+      top: 0.75rem;
+      right: 0.75rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  function initContactModal() {
+    const modal = document.getElementById('contactModal');
+    const closeBtn = document.getElementById('closeContactModal');
+    const form = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+    
+    // Handle links with href="#contact"
+    document.querySelectorAll('a[href="#contact"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal?.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    
+    // Handle buttons with data-open-modal attribute
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.closest('[data-open-modal]')) {
+        e.preventDefault();
+        modal?.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    
+    function closeModal() {
+      modal?.classList.remove('show');
+      document.body.style.overflow = '';
+      
+      setTimeout(() => {
+        form?.classList.remove('hide');
+        formSuccess?.classList.remove('show');
+        form?.reset();
+      }, 300);
+    }
+    
+    closeBtn?.addEventListener('click', closeModal);
+    
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal?.classList.contains('show')) {
+        closeModal();
+      }
+    });
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      console.log('Form submitted:', new FormData(form));
+      
+      form.style.display = 'none';
+      formSuccess?.classList.add('show');
+      
+      setTimeout(() => {
+        closeModal();
+      }, 3000);
+    });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactModal);
+  } else {
+    initContactModal();
+  }
+</script>

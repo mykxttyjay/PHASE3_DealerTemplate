@@ -57,13 +57,13 @@ const {
       </div>
       
       <div class="hero-cta-group">
-        <a href={ctaLink} class="hero-cta hero-cta-primary">
+        <button class="hero-cta hero-cta-primary" data-open-modal>
           <span>{ctaText}</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
-        </a>
+        </button>
         <a href="#services" class="hero-cta hero-cta-secondary">
           <span>EXPLORE SERVICES</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -430,3 +430,21 @@ const {
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const exploreBtn = document.querySelector('.hero-cta-secondary');
+    
+    exploreBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const servicesSection = document.getElementById('services');
+      
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+</script>

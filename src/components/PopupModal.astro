@@ -390,6 +390,21 @@ const {
     }
   }
 
+  function showPopup() {
+    if (popup) {
+      popup.classList.add('show');
+    }
+  }
+
+  // Handle floating button clicks
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('[data-open-popup]')) {
+      e.preventDefault();
+      showPopup();
+    }
+  });
+
   closePopup?.addEventListener('click', hidePopup);
   dismissPopup?.addEventListener('click', hidePopup);
   popupCta?.addEventListener('click', hidePopup);

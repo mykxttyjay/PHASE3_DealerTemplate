@@ -13,7 +13,7 @@ const {
 ---
 
 <div class="floating-action">
-  <a href={link} class="floating-button" title={text}>
+  <button class="floating-button" title={text} data-open-popup>
     {icon === "scan" && (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/>
@@ -21,7 +21,7 @@ const {
       </svg>
     )}
     <span class="floating-text">{text}</span>
-  </a>
+  </button>
 </div>
 
 <style>
@@ -59,10 +59,13 @@ const {
     box-shadow: 0 8px 30px rgba(26, 58, 82, 0.3), 0 0 0 3px rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
     cursor: pointer;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: none;
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: -2px;
     white-space: nowrap;
     text-transform: uppercase;
     animation: pulse 2s ease-in-out infinite;
+    font-family: inherit;
   }
 
   @keyframes pulse {
@@ -78,7 +81,7 @@ const {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(26, 58, 82, 0.4), 0 0 0 4px rgba(255, 255, 255, 0.6);
     background: linear-gradient(135deg, #2d5a7b 0%, #1a3a52 100%);
-    border-color: rgba(255, 255, 255, 0.8);
+    outline-color: rgba(255, 255, 255, 0.8);
     animation: none;
   }
 

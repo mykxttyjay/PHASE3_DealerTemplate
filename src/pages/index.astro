@@ -12,6 +12,7 @@ import FinalCTA from '../components/FinalCTA.astro';
 import Footer from '../components/Footer.astro';
 import PopupModal from '../components/PopupModal.astro';
 import FloatingButton from '../components/FloatingButton.astro';
+import ContactModal from '../components/ContactModal.astro';
 ---
 
 <html lang="en">
@@ -45,6 +46,7 @@ import FloatingButton from '../components/FloatingButton.astro';
   </head>
   <body>
     <PopupModal />
+    <ContactModal />
     <Header />
     <Hero
       badge="PREMIUM MARKETING SOLUTIONS"
@@ -112,7 +114,7 @@ import FloatingButton from '../components/FloatingButton.astro';
       ctaLink="#services"
     />
     <Venues
-      title="Denver's Premier Venue<br>Partner Network"
+      title="Denver's Premier <br>Venue Partner Network"
       description="Our <strong>digital marketing pros</strong> have built exclusive partnerships with Denver's most popular venues and businesses. Our <strong>screen network</strong> reaches customers when they're relaxed, engaged, and ready to take action—whether they're working out, dining, shopping, or waiting for service."
       features={[
         "Exclusive venue partnerships",
@@ -231,10 +233,10 @@ import FloatingButton from '../components/FloatingButton.astro';
       subtitle="Our <strong>network</strong> spans across Denver's most popular neighborhoods and venues"
       mapUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3067.8256519218744!2d-104.99051!3d39.7392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b80aa231f17cf%3A0x118ef4f8278a36d6!2sDenver%2C%20CO!5e0!3m2!1sen!2sus!4v1234567890"
       locations={[
-        { name: "Aurora", icon: "gym" },
-        { name: "Lakewood", icon: "restaurant" },
-        { name: "Arvada", icon: "retail" },
-        { name: "Centennial", icon: "gym" }
+        { name: "Aurora" },
+        { name: "Lakewood"},
+        { name: "Arvada"},
+        { name: "Centennial"}
       ]}
     />
     <FinalCTA
